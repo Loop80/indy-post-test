@@ -19,7 +19,8 @@
         <UnitName Value="IndyServerUnit"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="70" Y="10"/>
+        <TopLine Value="16"/>
+        <CursorPos X="9" Y="34"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
