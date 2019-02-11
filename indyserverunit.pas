@@ -7,7 +7,7 @@ procedure RunTest;
 implementation
 
 uses
-  IdCustomHTTPServer, IdContext, IdGlobalProtocols, IdGlobal, IdUri, Dialogs, SysUtils;
+  IdCustomHTTPServer, IdContext, IdGlobalProtocols, IdGlobal, IdUri, SysUtils;
 
 type
   TMyServer = class(TIdCustomHTTPServer)
@@ -31,7 +31,7 @@ begin
 end;
 
 // based on https://stackoverflow.com/questions/24861793
-// and Indy IdCustomHTTPServer rev 5498
+// using Indy IdCustomHTTPServer rev 5498
 procedure MyDecodeAndSetParams(ARequestInfo: TIdHTTPRequestInfo);
 var
   i, j : Integer;
@@ -78,7 +78,12 @@ begin
 
     WriteLn('CharSet: ' + ARequestInfo.CharSet);
     WriteLn('FormParams: ' + ARequestInfo.FormParams);
-    ShowMessage('Param[0]: ' + ARequestInfo.Params[0]);
+    WriteLn('Param[0]: ' + ARequestInfo.Params[0]);
+
+    if ARequestInfo.Params.Values['input'] = 'äöü ÄÖÜ' then
+      WriteLn('Ok')
+    else
+      WriteLn('Not ok')
   end;
 
   AResponseInfo.ContentText :=
