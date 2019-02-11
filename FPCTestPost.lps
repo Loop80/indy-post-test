@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="11"/>
+    <BuildModes Active="Default"/>
+    <Units Count="2">
+      <Unit0>
+        <Filename Value="FPCTestPost.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="12" Y="8"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="indyserverunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="IndyServerUnit"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="70" Y="10"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit1>
+    </Units>
+    <JumpHistory Count="3" HistoryIndex="2">
+      <Position1>
+        <Filename Value="FPCTestPost.lpr"/>
+        <Caret Line="4" Column="18"/>
+      </Position1>
+      <Position2>
+        <Filename Value="indyserverunit.pas"/>
+        <Caret Line="81" Column="56" TopLine="62"/>
+      </Position2>
+      <Position3>
+        <Filename Value="indyserverunit.pas"/>
+        <Caret Line="79" Column="34" TopLine="62"/>
+      </Position3>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

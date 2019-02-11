@@ -7,7 +7,7 @@ procedure RunTest;
 implementation
 
 uses
-  IdCustomHTTPServer, IdContext, IdGlobalProtocols, IdGlobal, IdUri, Dialogs, SysUtils;
+  IdCustomHTTPServer, IdContext, IdGlobalProtocols, IdGlobal, IdUri, SysUtils;
 
 type
   TMyServer = class(TIdCustomHTTPServer)
@@ -78,7 +78,7 @@ begin
 
     WriteLn('CharSet: ' + ARequestInfo.CharSet);
     WriteLn('FormParams: ' + ARequestInfo.FormParams);
-    ShowMessage('Param[0]: ' + ARequestInfo.Params[0]);
+    WriteLn('Param[0]: ' + ARequestInfo.Params[0]);
   end;
 
   AResponseInfo.ContentText :=
