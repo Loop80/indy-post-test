@@ -80,7 +80,7 @@ begin
     WriteLn('FormParams: ' + ARequestInfo.FormParams);
     WriteLn('Param[0]: ' + ARequestInfo.Params[0]);
 
-    if ARequestInfo.Params[0] = 'äöü ÄÖÜ' then
+    if ARequestInfo.Params.Values['input'] = 'äöü ÄÖÜ' then
       WriteLn('Ok')
     else
       WriteLn('Not ok')
