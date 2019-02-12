@@ -51,7 +51,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);C:\Delphi\Indy10_5494\Lib\System\"/>
-      <OtherUnitFiles Value="C:\Delphi\Indy10_5494\Lib\Core\;C:\Delphi\Indy10_5494\Lib\Protocols\;C:\Delphi\Indy10_5494\Lib\System\"/>
+      <OtherUnitFiles Value="..\Indy10\Lib\Core;..\Indy10\Lib\Protocols;..\Indy10\Lib\System"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

@@ -1,8 +1,8 @@
 program FPCTestPost;
 
 uses
-  IndyServerUnit,
-  LazUTF8;
+  // LazUTF8,
+  IndyServerUnit;
 
 begin
   RunTest;
