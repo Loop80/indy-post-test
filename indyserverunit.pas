@@ -151,19 +151,24 @@ end;
 procedure TMyServer.DoCommandGet(AContext: TIdContext;
   ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
 begin
-    AResponseInfo.ContentText :=
-        '<!DOCTYPE HTML>'
-      + '<html lang="en">'
-      + '<head>'
-      + '  <meta charset="utf-8">'
-      + '  <title>Hello</title>'
-      + '</head>'
-      + '<body>'
-      + '  Input'
-      + '</body>'
-      + '</html>';
-    AResponseInfo.ContentType := 'text/html';
-    AResponseInfo.CharSet := 'utf-8';
+  if ARequestInfo.Document <> '/index.html' then begin
+    AResponseInfo.ResponseNo := 404;
+    Exit;
+  end;
+
+  AResponseInfo.ContentText :=
+      '<!DOCTYPE HTML>'
+    + '<html lang="en">'
+    + '<head>'
+    + '  <meta charset="utf-8">'
+    + '  <title>Hello</title>'
+    + '</head>'
+    + '<body>'
+    + '  Input ' + Utf8Encode('ä')
+    + '</body>'
+    + '</html>';
+  AResponseInfo.ContentType := 'text/html';
+  AResponseInfo.CharSet := 'utf-8';
 
 
   //if (ARequestInfo.CommandType = hcPOST) and
