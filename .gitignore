@@ -66,3 +66,4 @@ __recovery/
 *.stat
 backup/
 lib/
+DelphiTestPost.dproj
