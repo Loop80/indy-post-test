@@ -50,7 +50,7 @@
       <Filename Value="FPCTestPost"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);C:\Delphi\Indy10_5494\Lib\System\"/>
+      <IncludeFiles Value="$(ProjOutDir);..\Indy10\Lib\Core"/>
       <OtherUnitFiles Value="..\Indy10\Lib\Core;..\Indy10\Lib\Protocols;..\Indy10\Lib\System"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
@@ -61,7 +61,7 @@
     </Parsing>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -71,6 +71,15 @@
       <Item3>
         <Name Value="EFOpenError"/>
       </Item3>
+      <Item4>
+        <Name Value="EIdConnClosedGracefully"/>
+      </Item4>
+      <Item5>
+        <Name Value="EIdSocketError"/>
+      </Item5>
+      <Item6>
+        <Name Value="EIdClosedSocket"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

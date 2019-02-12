@@ -2,18 +2,20 @@ unit IndyServerUnit;
 
 interface
 
+{$i IdCompilerDefines.inc}
+
 procedure RunTest;
 
 implementation
 
 uses
   IdCustomHTTPServer, IdContext, IdGlobalProtocols, IdGlobal, IdURI,
-  SysUtils;
+  ShellAPI;
 
 type
   TMyServer = class(TIdCustomHTTPServer)
   private
-    // InputValue: string; // should use session...
+    InputValue: string; // should use session instead ...
   protected
     procedure DoCommandGet(AContext: TIdContext;
       ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo); override;
@@ -23,12 +25,10 @@ procedure RunTest;
 var
   Server: TMyServer;
 begin
-  FileGetAttr('');
-
   Server := TMyServer.Create;
   try
     Server.Active := True;
-    WriteLn('Server is running on http://localhost');
+    ShellExecute(0, 'open', PChar('http://localhost/index.html'), '', '', 0);
     ReadLn;
   finally
     Server.Free;
@@ -156,52 +156,58 @@ begin
     Exit;
   end;
 
-  AResponseInfo.ContentText :=
-      '<!DOCTYPE HTML>'
-    + '<html lang="en">'
-    + '<head>'
-    + '  <meta charset="utf-8">'
-    + '  <title>Hello</title>'
-    + '</head>'
-    + '<body>'
-    + '  Input ' + Utf8Encode('ä')
-    + '</body>'
-    + '</html>';
+  // this tells TIdHTTPServer what encoding the ContentText is using
+  // so it can be decoded to Unicode prior to then being charset-encoded
+  // for output. If the input and output encodings are the same, the
+  // Ansi string data gets transmitted as-is without decoding/reencoding...
+  {$IFDEF FPC}
+  // if LowerCase(AResponseInfo.CharSet) = 'utf-8' then
+  begin
+    AContext.Connection.IOHandler.DefAnsiEncoding := IndyTextEncoding_UTF8;
+  end;
+  {$ENDIF}
+
+  if (ARequestInfo.CommandType = hcPOST) and
+    IsHeaderMediaType(ARequestInfo.ContentType, 'application/x-www-form-urlencoded')
+  then begin
+    // decode form params
+    MyDecodeAndSetParams(ARequestInfo);
+
+    WriteLn('CharSet: ' + ARequestInfo.CharSet);
+    WriteLn('FormParams: ' + ARequestInfo.FormParams);
+    InputValue := ARequestInfo.Params.Values['input'];
+    WriteLn('Param.Values[''input'']: ' + InputValue);
+
+    AResponseInfo.ContentText :=
+          '<!DOCTYPE HTML>'
+        + '<html lang="en">'
+        + '<head>'
+        + '  <meta charset="utf-8">'
+        + '  <title>Hello</title>'
+        + '</head>'
+        + '<body>'
+        + '  Input: ' + InputValue
+        + '</body>'
+        + '</html>';
+  end else begin
+    AResponseInfo.ContentText :=
+        '<!DOCTYPE HTML>'
+      + '<html lang="en">'
+      + '<head>'
+      + '  <meta charset="utf-8">'
+      + '  <title>Form Test</title>'
+      + '</head>'
+      + '<body>'
+      + '  <form method="POST">'
+      + '    <input type="text" name="input" />'
+      + '    <input type="submit" />'
+      + '  </form>'
+      + '</body>'
+      + '</html>';
+  end;
+
   AResponseInfo.ContentType := 'text/html';
   AResponseInfo.CharSet := 'utf-8';
-
-
-  //if (ARequestInfo.CommandType = hcPOST) and
-  //  IsHeaderMediaType(ARequestInfo.ContentType, 'application/x-www-form-urlencoded')
-  //then begin
-  //  MyDecodeAndSetParams(ARequestInfo);
-  //
-  //  WriteLn('CharSet: ' + ARequestInfo.CharSet);
-  //  WriteLn('FormParams: ' + ARequestInfo.FormParams);
-  //  InputValue := ARequestInfo.Params.Values['input'];
-  //  WriteLn('Param.Values[''input'']: ' + InputValue);
-  //
-  //  // redirect to thankyou page
-  //  AResponseInfo.Redirect('thankyou.html');
-  //  Exit;
-  //end else begin
-  //  AResponseInfo.ContentText :=
-  //      '<!DOCTYPE HTML>'
-  //    + '<html lang="en">'
-  //    + '<head>'
-  //    + '  <meta charset="utf-8">'
-  //    + '  <title>Form Test</title>'
-  //    + '</head>'
-  //    + '<body>'
-  //    + '  <form method="POST">'
-  //    + '    <input type="text" name="input" />'
-  //    + '    <input type="submit" />'
-  //    + '  </form>'
-  //    + '</body>'
-  //    + '</html>';
-  //  AResponseInfo.ContentType := 'text/html';
-  //  AResponseInfo.CharSet := 'utf-8';
-  //end;
 end;
 
 end.
